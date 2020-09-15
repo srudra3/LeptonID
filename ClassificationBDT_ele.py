@@ -48,7 +48,7 @@ def runJob():
     mycuts = TCut("Electron_pt>15")
     mycutb = TCut("Electron_pt>15")
 
-    dataloader.PrepareTrainingAndTestTree(mycuts, mycutb,'nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V') #running over 5 events only-- don't expect results that make physics sense
+    dataloader.PrepareTrainingAndTestTree(mycuts, mycutb,'nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V') 
     factory.BookMethod(dataloader, TMVA.Types.kBDT, "BDT", "!H:!V:NTrees=500:MinNodeSize=0.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.1:SeparationType=GiniIndex:nCuts=500" );
     factory.BookMethod(dataloader, TMVA.Types.kBDT, "BDTG", "!H:!V:NTrees=500:MinNodeSize=0.5%:MaxDepth=3:BoostType=Grad:Shrinkage=0.05:UseBaggedBoost:GradBaggingFraction=0.5:nCuts=500" ); 
     factory.TrainAllMethods()
