@@ -4,9 +4,9 @@ from subprocess import call
 from os.path import isfile
 from array import array
 from math import *
-from LatinoAnalysis.NanoGardener.modules.GenLeptonMatchProducer import GenLeptonMatchProducer
-from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection
-from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
+#from LatinoAnalysis.NanoGardener.modules.GenLeptonMatchProducer import GenLeptonMatchProducer
+#from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection
+#from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 
 # Setup TMVA
 def runJob():
@@ -19,9 +19,9 @@ def runJob():
                   
 #    inputS = TFile.Open("root://cms-xrd-global.cern.ch///store/mc/RunIIFall17NanoAODv5/DYJetsToLL_M-5to50_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/PU2017_12Apr2018_Nano1June2019_102X_mc2017_realistic_v7-v1/70000/773DAD3C-8145-F643-8934-ACEFB018C1D6.root")
 #    inputB = TFile.Open("root://cms-xrd-global.cern.ch///store/mc/RunIIFall17NanoAODv5/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/PU2017_12Apr2018_Nano1June2019_102X_mc2017_realistic_v7-v1/110000/59A3A9A4-660B-7B4F-B858-23CFE7C09303.root")
-    inputS = TFile.Open("/afs/cern.ch/work/s/srudrabh/ZH3l/CMSSW_10_2_0/src/LatinoAnalysis/NanoGardener/test/DYJetsToLL_M-5to50_ElePromptGenMatched.root")
-    inputBA = TFile.Open("/afs/cern.ch/work/s/srudrabh/ZH3l/CMSSW_10_2_0/src/LatinoAnalysis/NanoGardener/test/WJetsToLNu_ElePromptGenMatched.root")
-    inputBB = TFile.Open("/afs/cern.ch/work/s/srudrabh/ZH3l/CMSSW_10_2_0/src/LatinoAnalysis/NanoGardener/test/TTToSemiLeptonic_ElePromptGenMatched.root") 
+    inputS = TFile.Open("/afs/cern.ch/work/s/srudrabh/ZH3l/CMSSW_10_2_0/src/LatinoAnalysis/NanoGardener/test/DYJetsToLL_M-50_v7_ElePromptGenMatched.root")
+    inputBA = TFile.Open("/afs/cern.ch/work/s/srudrabh/ZH3l/CMSSW_10_2_0/src/LatinoAnalysis/NanoGardener/test/WJetsToLNu_v7_ElePromptGenMatched.root")
+    inputBB = TFile.Open("/afs/cern.ch/work/s/srudrabh/ZH3l/CMSSW_10_2_0/src/LatinoAnalysis/NanoGardener/test/TTToSemiLeptonic_v7_ElePromptGenMatched.root") 
     signalTree = inputS.Get("Events")
     backgroundTreeA = inputBA.Get("Events")
     backgroundTreeB = inputBB.Get("Events")
@@ -35,8 +35,8 @@ def runJob():
     dataloader.AddVariable("Electron_sip3d", "Electron_sip3d", 'F')
     dataloader.AddVariable("Electron_mvaFall17V1Iso_WP90", "Electron_mvaFall17V1Iso_WP90", 'F')
     dataloader.AddVariable("Jet_btagDeepFlavB := (Electron_jetIdx >= 0)*(Jet_btagDeepFlavB[max(Electron_jetIdx,0)])", "Jet_btagDeepFlavB", 'F') #takes a non-zero value only when there are associated jets i.e;Electron_jetIdx>=0
-    dataloader.AddVariable("Electron_jetPtRelv2 := (Electron_jetIdx >= 0)*(Electron_jetPtRelv2)", "Electron_jetPtRelv2", 'F') #takes a non-zero value only when there are associated jets i.e;Electron_jetIdx>=0
-    dataloader.AddVariable("Electron_jetPtRatio := (Electron_jetIdx == -1)*((Electron_pt)/(Electron_pt+(Electron_miniPFRelIso_all-Electron_miniPFRelIso_chg)))+ (Electron_jetIdx >= 0)*((Electron_pt)/(Jet_pt[max(Electron_jetIdx,0)]))", "Electron_jetPtRatio", 'F') #takes a different value for Electron_jetIdx == -1 and for when Electron_jetIdx >= 0
+    dataloader.AddVariable("Electron_jetPtRelv2 := (Electron_jetIdx >= 0)*(Electron_jetPtRelv2)", "Electron_jetPtRelv2", 'F') #takes a non-zero value only when there are associated jets 
+    dataloader.AddVariable("Electron_jetPtRatio := (Electron_jetIdx == -1)*((1)/(1+(Electron_miniPFRelIso_all)))+ (Electron_jetIdx >= 0)*((Electron_pt)/(Jet_pt[max(Electron_jetIdx,0)]))", "Electron_jetPtRatio", 'F') #proxy for jet pt when no associated jets found
     signalWeight = 1.0
     backgroundWeight = 1.0
 
