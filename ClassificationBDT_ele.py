@@ -43,8 +43,8 @@ def runJob():
     dataloader.AddSignalTree(signalTree, signalWeight)
     dataloader.AddBackgroundTree(backgroundTreeA, backgroundWeight)
     dataloader.AddBackgroundTree(backgroundTreeB, backgroundWeight)
-    dataloader.SetSignalWeightExpression("(nElectron>0)*(Electron_promptgenmatched)")
-    dataloader.SetBackgroundWeightExpression("(nElectron>0)*(!Electron_promptgenmatched)")
+    dataloader.SetSignalWeightExpression("Electron_promptgenmatched")
+    dataloader.SetBackgroundWeightExpression("!Electron_promptgenmatched")
     mycuts = TCut("Electron_pt>15")
     mycutb = TCut("Electron_pt>15")
 
