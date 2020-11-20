@@ -28,12 +28,16 @@ def runJob():
     #Filling mvaVariables to the Factory-- implicit Event loop
     dataloader.AddVariable("Electron_pt", "Electron_pt",'F')
     dataloader.AddVariable("Electron_eta", "Electron_eta",'F')
-    dataloader.AddVariable("Electron_miniPFRelIso_chg", "Electron_miniPFRelIso_chg", 'F')
-    dataloader.AddVariable("Electron_miniPFRelIso_neu := Electron_miniPFRelIso_all-Electron_miniPFRelIso_chg", "Electron_miniPFRelIso_neu", 'F')
+#    dataloader.AddVariable("Electron_miniPFRelIso_chg", "Electron_miniPFRelIso_chg", 'F')
+#    dataloader.AddVariable("Electron_miniPFRelIso_neu := Electron_miniPFRelIso_all-Electron_miniPFRelIso_chg", "Electron_miniPFRelIso_neu", 'F')
+    dataloader.AddVariable("Electron_miniPFRelIso_all", "Electron_miniPFRelIso_all", 'F')
+    dataloader.AddVariable("Electron_r9", "Electron_r9", 'F')
     dataloader.AddVariable("Electron_dxy := log(abs(Electron_dxy))", "Electron_dxy", 'F')
     dataloader.AddVariable("Electron_dz := log(abs(Electron_dz))", "Electron_dz", 'F')
     dataloader.AddVariable("Electron_sip3d", "Electron_sip3d", 'F')
-    dataloader.AddVariable("Electron_mvaFall17V1Iso_WP90", "Electron_mvaFall17V1Iso_WP90", 'F')
+    dataloader.AddVariable("Electron_convVeto", "Electron_convVeto", 'F')
+    dataloader.AddVariable("Electron_lostHits", "Electron_lostHits", 'F')
+    dataloader.AddVariable("Electron_mvaFall17V2noIso", "Electron_mvaFall17V2noIso", 'F')
     dataloader.AddVariable("Jet_btagDeepFlavB := (Electron_jetIdx >= 0)*(Jet_btagDeepFlavB[max(Electron_jetIdx,0)])", "Jet_btagDeepFlavB", 'F') #takes a non-zero value only when there are associated jets i.e;Electron_jetIdx>=0
     dataloader.AddVariable("Electron_jetPtRelv2 := (Electron_jetIdx >= 0)*(Electron_jetPtRelv2)", "Electron_jetPtRelv2", 'F') #takes a non-zero value only when there are associated jets 
     dataloader.AddVariable("Electron_jetPtRatio := (Electron_jetIdx == -1)*((1)/(1+(Electron_miniPFRelIso_all)))+ (Electron_jetIdx >= 0)*((Electron_pt)/(Jet_pt[max(Electron_jetIdx,0)]))", "Electron_jetPtRatio", 'F') #proxy for jet pt when no associated jets found
